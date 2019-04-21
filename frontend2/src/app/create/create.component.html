@@ -1,0 +1,117 @@
+	<mat-card-content style="padding:25px">
+		<h2>Examenes</h2>
+		<form [formGroup]="evaluationForm">
+			<div formArrayName="evaluations">
+				<div *ngFor="let item of getEvaluations.controls; let pointIndex=index" [formGroupName]="pointIndex">
+					<mat-card style="margin-bottom: 20px;">
+						<mat-card>
+							<h3>Examen {{pointIndex+1}}</h3>
+							<mat-grid-list cols="10" rows="2" rowHeight="3:2">
+								<mat-grid-tile [colspan]="3">
+									<mat-form-field>
+										<input matInput [matDatepicker]="picker" formControlName="date" placeholder="Choose a date">
+										<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+										<mat-datepicker #picker></mat-datepicker>
+									</mat-form-field>
+								</mat-grid-tile>
+								<mat-grid-tile [colspan]="2">
+									<mat-form-field>
+										<mat-label>Tipo de Nota</mat-label>
+										<mat-select formControlName="gradeType">
+											<mat-option value="numeric" selected>Numerico</mat-option>
+											<mat-option value="letter">Alfabetico</mat-option>
+										</mat-select>
+									</mat-form-field>
+								</mat-grid-tile>
+								<mat-grid-tile [colspan]="3">
+									<mat-form-field>
+										<mat-label>Nota de Aprobacion</mat-label>
+										<div [ngSwitch]="item.value.gradeType">
+											<mat-select *ngSwitchCase="'numeric'" formControlName="approvalScore">
+												<mat-option *ngFor="let s of numberScores" [value]="s">
+													{{s}}
+												</mat-option>
+											</mat-select>
+											<mat-select *ngSwitchCase="'letter'" formControlName="approvalScore">
+												<mat-option *ngFor="let s of letterScores" [value]="s">
+													{{s}}
+												</mat-option>
+											</mat-select>
+										</div>
+
+									</mat-form-field>
+								</mat-grid-tile>
+								<mat-grid-tile [colspan]="2">
+									<mat-form-field>
+										<input matInput type="number" min="0" formControlName="countRecovery" placeholder="Cantidad de recuperatorios">
+									</mat-form-field>
+								</mat-grid-tile>
+								<mat-grid-tile [colspan]="3" [rowspan]="2">
+									<mat-checkbox formControlName="promotable">Para Promocion</mat-checkbox>
+								</mat-grid-tile>
+								<mat-grid-tile [colspan]="2" [rowspan]="2">
+									<mat-form-field>
+										<mat-label>Nota de Aprobacion</mat-label>
+										<div [ngSwitch]="item.value.gradeType">
+											<mat-select [disabled]="!item.value.promotable" *ngSwitchCase="'numeric'" formControlName="approvalPromoScore">
+												<mat-option *ngFor="let s of numberScores" [value]="s">
+													{{s}}
+												</mat-option>
+											</mat-select>
+											<mat-select [disabled]="!item.value.promotable" *ngSwitchCase="'letter'" formControlName="approvalPromoScore">
+												<mat-option *ngFor="let s of letterScores" [value]="s">
+													{{s}}
+												</mat-option>
+											</mat-select>
+										</div>
+									</mat-form-field>
+								</mat-grid-tile>
+								<mat-grid-tile [colspan]="3" [rowspan]="2">
+									<mat-checkbox [disabled]="!item.value.promotable || item.value.countRecovery==0 " formControlName="recoveryPromotable">Recuperatorio/s con promocion?</mat-checkbox>
+								</mat-grid-tile>
+								<mat-grid-tile [rowspan]="2" [colspan]="2">
+									<mat-chip [disabled]="pointIndex==0" color="warn" (click)="deleteEvaluation(pointIndex)" selected>Quitar</mat-chip>
+								</mat-grid-tile>
+							</mat-grid-list>
+						</mat-card>
+						<div formArrayName="topics">
+							<div *ngFor="let topic of getTopics(item); let topicIndex=index" [formGroupName]="topicIndex">
+								<mat-card>
+									<h4>Tema {{topicIndex+1}}</h4>
+									<mat-grid-list cols="5" rowHeight="5:1">
+										<mat-grid-tile [colspan]="2">
+											<mat-form-field>
+												<input matInput type="text" formControlName="name" placeholder="Cantidad de recuperatorios">
+											</mat-form-field>
+										</mat-grid-tile>
+										<mat-grid-tile [colspan]="2">
+											<mat-form-field>
+												<input matInput type="text" formControlName="name" placeholder="Cantidad de recuperatorios">
+											</mat-form-field>
+										</mat-grid-tile>
+										<mat-grid-tile>
+											<mat-chip [disabled]="topicIndex==0" color="warn" selected>Quitar</mat-chip>
+										</mat-grid-tile>
+
+									</mat-grid-list>
+								</mat-card>
+							</div>
+							<mat-chip-list>
+								<mat-chip color="primary" (click)="addTopic(pointIndex)" selected>Agregar Tema</mat-chip>
+							</mat-chip-list>
+						</div>
+					</mat-card>
+				</div>
+
+				<mat-chip-list>
+					<mat-chip color="primary" (click)="addEvaluation()" selected>Agregar Examen</mat-chip>
+				</mat-chip-list>
+
+			</div>
+
+		</form>
+
+
+
+	</mat-card-content>
+	<pre>{{ this.evaluationForm.value | json }}</pre>
