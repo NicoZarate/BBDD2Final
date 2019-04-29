@@ -32,9 +32,17 @@ export class CreateComponent implements OnInit {
     })
   }
 
+  createTopic() {
+    return this.fb.group({
+      name: '',
+      weight: 0,
+    })
+  }
+
   get getEvaluations() {
     return this.evaluationForm.get('evaluations') as FormArray;
   }
+
   getTopics(form) {
     return form.controls.topics.controls;
   }
@@ -50,29 +58,26 @@ export class CreateComponent implements OnInit {
         promotable: false,
         approvalPromoScore: '',
         recoveryPromotable: 'false',
-        topics: this.fb.array([this.createTopic()]),
+        topics: this.fb.array([
+          this.createTopic()
+        ]),
       }
     )
     );
   }
 
-  deleteEvaluation(index) {
-    this.getEvaluations.removeAt(index);
-  }
-
-  createTopic(){
-   return  this.fb.group({
-      name: '',
-      weight: '',
-    })
-  }
-
   addTopic(i) {
-    const control = <FormArray>this.myForm.get('evaluations').controls[i].get('topics');
-    // console.log(control);
+    const control = (<FormArray>this.evaluationForm.get('evaluations') as FormArray).at(i).get('topics') as FormArray;
     control.push(this.createTopic());
   }
 
+  deleteTopic(pointIndex, topicIndex) {
+    const control = (<FormArray>this.evaluationForm.get('evaluations') as FormArray).at(pointIndex).get('topics') as FormArray;
+    control.removeAt(topicIndex);
+  }
 
+  deleteEvaluation(index) {
+    this.getEvaluations.removeAt(index);
+  }
 
 }
