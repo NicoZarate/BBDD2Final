@@ -32,6 +32,7 @@ export class CreateComponent implements OnInit {
     })
   }
 
+
   createTopic() {
     return this.fb.group({
       name: '',
@@ -78,6 +79,13 @@ export class CreateComponent implements OnInit {
 
   deleteEvaluation(index) {
     this.getEvaluations.removeAt(index);
+  }
+
+  sendEvaluatios(){}
+
+  reset(){
+    this.evaluationForm.reset();
+    this.ngOnInit();
   }
 
 }

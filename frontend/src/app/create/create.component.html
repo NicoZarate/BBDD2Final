@@ -112,6 +112,14 @@
 
 			</div>
 
+			<mat-grid-list cols="2" rowHeight="5:1">
+				<mat-grid-tile>
+					<button mat-raised-button style="width:80%" color="primary" (click)="sendEvaluatios()">Guardar</button>
+				</mat-grid-tile>
+				<mat-grid-tile>
+					<button mat-raised-button style="width:80%" color="warn" (click)="reset()" selected>Resetear</button>
+				</mat-grid-tile>
+			</mat-grid-list>
 		</form>
 
 
