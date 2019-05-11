@@ -24,8 +24,8 @@
 								<mat-form-field>
 									<mat-label>Tipo de Nota</mat-label>
 									<mat-select formControlName="gradeType">
-										<mat-option value="numeric" selected>Numerico</mat-option>
-										<mat-option value="letter">Alfabetico</mat-option>
+										<mat-option value="NUMERIC" selected>Numerico</mat-option>
+										<mat-option value="LETTER">Alfabetico</mat-option>
 									</mat-select>
 								</mat-form-field>
 							</mat-grid-tile>
@@ -33,12 +33,12 @@
 								<mat-form-field>
 									<mat-label>Nota de Aprobacion</mat-label>
 									<div [ngSwitch]="item.value.gradeType">
-										<mat-select *ngSwitchCase="'numeric'" formControlName="approvalScore">
+										<mat-select *ngSwitchCase="'NUMERIC'" formControlName="approvalScore">
 											<mat-option *ngFor="let s of numberScores" [value]="s">
 												{{s}}
 											</mat-option>
 										</mat-select>
-										<mat-select *ngSwitchCase="'letter'" formControlName="approvalScore">
+										<mat-select *ngSwitchCase="'LETTER'" formControlName="approvalScore">
 											<mat-option *ngFor="let s of letterScores" [value]="s">
 												{{s}}
 											</mat-option>
@@ -49,7 +49,7 @@
 							</mat-grid-tile>
 							<mat-grid-tile [colspan]="2">
 								<mat-form-field>
-									<input matInput type="number" min="0" formControlName="countRecovery" placeholder="Cantidad de recuperatorios">
+									<input matInput type="number" min="0" formControlName="recoveryChances" placeholder="Cantidad de recuperatorios">
 								</mat-form-field>
 							</mat-grid-tile>
 							<mat-grid-tile [colspan]="3" [rowspan]="2">
@@ -59,12 +59,12 @@
 								<mat-form-field>
 									<mat-label>Nota de Aprobacion</mat-label>
 									<div [ngSwitch]="item.value.gradeType">
-										<mat-select [disabled]="!item.value.promotable" *ngSwitchCase="'numeric'" formControlName="approvalPromoScore">
+										<mat-select [disabled]="!item.value.promotable" *ngSwitchCase="'NUMERIC'" formControlName="approvalPromoScore">
 											<mat-option *ngFor="let s of numberScores" [value]="s">
 												{{s}}
 											</mat-option>
 										</mat-select>
-										<mat-select [disabled]="!item.value.promotable" *ngSwitchCase="'letter'" formControlName="approvalPromoScore">
+										<mat-select [disabled]="!item.value.promotable" *ngSwitchCase="'LETTER'" formControlName="approvalPromoScore">
 											<mat-option *ngFor="let s of letterScores" [value]="s">
 												{{s}}
 											</mat-option>

@@ -4,6 +4,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { MyNavComponent } from './my-nav/my-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
+import { HttpClientModule } from '@angular/common/http';
+import {HttpModule} from '@angular/http'
 import {
   MatToolbarModule,
   MatButtonModule,
@@ -25,6 +27,7 @@ import { CreateComponent } from './create/create.component';
 import { ViewComponent } from './view/view.component';
 import { UpdateComponent } from './update/update.component';
 import { AppRoutingModule } from './app-routing.module';
+import { ApprovalRuleService } from './approval-rule.service';
 
 @NgModule({
   declarations: [
@@ -53,9 +56,11 @@ import { AppRoutingModule } from './app-routing.module';
     MatDatepickerModule,
     MatNativeDateModule,
     ReactiveFormsModule,
-    MatChipsModule
+    MatChipsModule,
+    HttpClientModule,
+    HttpModule
   ],
-  providers: [MatDatepickerModule],
+  providers: [MatDatepickerModule,ApprovalRuleService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
