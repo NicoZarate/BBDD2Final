@@ -1,7 +1,7 @@
 import {Topic} from "./topic.model";
 export class Evaluation   {
     date: string;
-    gradeType: number;
+    gradeType: string;
     approvalScore: string;
     recoveryChances: number;
     promotable: boolean;

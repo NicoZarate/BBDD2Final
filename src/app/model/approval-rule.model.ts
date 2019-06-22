@@ -4,5 +4,6 @@ export class ApprovalRule {
   matterCode:string;
   matterName:string;
   season:string;
+  year:number;
   evaluations:Evaluation[];
 }
