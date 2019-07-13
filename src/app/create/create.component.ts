@@ -10,11 +10,12 @@ import { ApprovalRule } from '../model/approval-rule.model';
 })
 export class CreateComponent {
 
-  constructor(private approvalRuleService: ApprovalRuleService) { }
+  constructor(private approvalRuleService: ApprovalRuleService,
+              private router: Router) { }
 
   sendEvaluatios(approvalRule:ApprovalRule){
       this.approvalRuleService.create(approvalRule).subscribe((res) => {
-        console.log(res);
+        this.router.navigate(['/view'])
       });
   }
 

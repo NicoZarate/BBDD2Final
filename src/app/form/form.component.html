@@ -1,6 +1,33 @@
 <mat-card-content style="padding:25px">
-  <h2>{{evaluationForm.value.matterName}} ({{evaluationForm.value.matterCode}}): {{evaluationForm.value.season}}</h2>
+
   <form [formGroup]="evaluationForm">
+    <mat-card style="margin-bottom: 20px;">
+      <div style="display:flex; justify-content: start;">
+        <div>
+          <h2>{{evaluationForm.value.matterName}} ({{evaluationForm.value.matterCode}}):</h2>
+        </div>
+        <div style="margin-left: 50px;">
+          <mat-form-field>
+            <mat-label>Semestre</mat-label>
+            <mat-select formControlName="season">
+              <mat-option *ngFor="let s of seasons" [value]="s">
+                {{s}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div style="margin-left: 50px;">
+          <mat-form-field>
+            <mat-label>Año</mat-label>
+            <mat-select formControlName="year">
+              <mat-option *ngFor="let y of years" [value]="y">
+                {{y}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </mat-card>
     <div formArrayName="evaluations">
       <div *ngFor="let item of getEvaluations.controls; let pointIndex=index" [formGroupName]="pointIndex">
         <mat-card style="margin-bottom: 20px;">
@@ -9,13 +36,13 @@
               <h3>Examen {{pointIndex+1}}</h3>
             </div>
             <div>
-              <mat-chip [disabled]="pointIndex==0" color="warn" (click)="pointIndex > 0 && deleteEvaluation(pointIndex)" selected>Quitar Exámen</mat-chip>
+              <mat-chip *ngIf="pointIndex > 0" color="warn" (click)="pointIndex > 0 && deleteEvaluation(pointIndex)" selected>Quitar Exámen</mat-chip>
             </div>
           </div>
           <mat-grid-list cols="10" rows="2" rowHeight="3:2">
             <mat-grid-tile [colspan]="3">
               <mat-form-field>
-                <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Choose a date">
+                <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Elegir fecha">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
@@ -93,7 +120,7 @@
                     </mat-form-field>
                   </mat-grid-tile>
                   <mat-grid-tile>
-                    <mat-chip [disabled]="topicIndex==0" color="warn" (click)="topicIndex > 0 && deleteTopic(pointIndex, topicIndex)" selected>Quitar tema</mat-chip>
+                    <mat-chip *ngIf="topicIndex > 0" color="warn" (click)="topicIndex > 0 && deleteTopic(pointIndex, topicIndex)" selected>Quitar tema</mat-chip>
                   </mat-grid-tile>
                 </mat-grid-list>
               </mat-card>
@@ -120,5 +147,5 @@
       </mat-grid-tile>
     </mat-grid-list>
   </form>
+
 </mat-card-content>
-<pre>{{evaluationForm.value | json}}</pre>

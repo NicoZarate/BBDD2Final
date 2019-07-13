@@ -21,7 +21,9 @@ import {
   MatNativeDateModule,
   MatDatepickerModule,
   MatChipsModule,
-  MatTableModule
+  MatTableModule,
+  MatSnackBarModule,
+  MatDialogModule
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreateComponent } from './create/create.component';
@@ -30,6 +32,7 @@ import { UpdateComponent } from './update/update.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ApprovalRuleService } from './approval-rule.service';
 import { FormComponent } from './form/form.component';
+import { DialogComponent } from './dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +41,8 @@ import { FormComponent } from './form/form.component';
     CreateComponent,
     ViewComponent,
     UpdateComponent,
-    FormComponent
+    FormComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
@@ -62,8 +66,11 @@ import { FormComponent } from './form/form.component';
     MatChipsModule,
     HttpClientModule,
     HttpModule,
-    MatTableModule
+    MatTableModule,
+    MatSnackBarModule,
+    MatDialogModule
   ],
+  entryComponents: [DialogComponent],
   providers: [MatDatepickerModule,ApprovalRuleService],
   bootstrap: [AppComponent]
 })

@@ -24,8 +24,8 @@
   <ng-container matColumnDef="options">
     <th mat-header-cell *matHeaderCellDef> Opciones </th>
     <td mat-cell *matCellDef="let element">
-      <mat-icon title="ver" color="primary">pageview</mat-icon>
       <mat-icon title="editar" (click)="edit(element.id)" color="primary">edit</mat-icon>
+      <mat-icon title="eliminar" (click)="openDialog(element.id)" color="primary">delete</mat-icon>
     </td>
   </ng-container>
 

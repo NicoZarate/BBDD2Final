@@ -31,4 +31,8 @@ export class ApprovalRuleService {
   all():Observable<ApprovalRule[] | any>{
     return this.httpClient.get(this.baseUrl + '/approval_rule');
   }
+
+  delete(id:string ):Observable<ApprovalRule | any> {
+    return this.httpClient.delete(this.baseUrl + '/approval_rule/'+ id);
+  }
 }

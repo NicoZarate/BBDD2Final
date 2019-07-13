@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { ApprovalRuleService } from '../approval-rule.service';
 import { ApprovalRule } from '../model/approval-rule.model';
 import { Router, ActivatedRoute, ParamMap } from "@angular/router";
 import { switchMap } from 'rxjs/operators';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'app-view',
@@ -16,43 +18,34 @@ export class ViewComponent implements OnInit {
 
   constructor(private approvalRuleService: ApprovalRuleService,
     private router: Router,
-    private route: ActivatedRoute, ) { }
+    private route: ActivatedRoute,
+    public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.approvalRules = [{
-      "id": 1,
-      "matterCode": "OID45",
-      "matterName": "Matematica 4",
-      "season": "1er semestres",
-      "year": 2010,
-      "evaluations": [
-        {
-          "date": "2019-06-18T03:00:00.000Z",
-          "gradeType": "NUMERIC",
-          "approvalScore": "5",
-          "recoveryChances": 1,
-          "promotable": true,
-          "approvalPromoScore": "3",
-          "recoveryPromotable": true,
-          "topics": [
-            {
-              "name": "probabilidad",
-              "weight": 5
-            },
-            {
-              "name": "estadistica",
-              "weight": 5
-            }
-          ]
-        }
-      ]
-    }
-    ]
+    this.getApprovalRules();
   }
 
   edit(id) {
     this.router.navigate(['update/' + id]);
   }
+
+  delete(id) {
+    this.approvalRuleService.delete(id).subscribe((res) => {
+        window.location.reload();
+    });
+  }
+
+  openDialog(id): void {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data: {id: id}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.delete(result.id);
+    });
+  }
+
 
   getApprovalRules() {
     this.approvalRuleService.all().subscribe((res) => {

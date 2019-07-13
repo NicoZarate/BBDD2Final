@@ -1,6 +1,7 @@
 import { Evaluation } from './evaluation.model';
 export class ApprovalRule {
-  id: number;
+  id: string;
+  version: number;
   matterCode:string;
   matterName:string;
   season:string;
