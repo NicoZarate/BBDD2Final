@@ -37,11 +37,17 @@ export class UpdateComponent implements OnInit {
       (res) => {
         this.approvalRule = res;
       },
+      err => {
+        console.log(err);
+        this.openSnackBar(err.status, 'Error');
+        this.router.navigate(['/']);
+      });
     );
   }
 
   openSnackBar(message: any, action: string) {
-    if(message == 409) message= 'Los datos ya han sido modificados. Presione F5 y luego modifique'
+    if(message == 409) message= 'Los datos ya han sido modificados. Presione F5 y luego modifique';
+    if(message == 404) message= 'El id no existe';
     this._snackBar.open(message, action, {
       duration: 10000,
     });
