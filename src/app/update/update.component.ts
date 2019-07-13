@@ -41,13 +41,14 @@ export class UpdateComponent implements OnInit {
         console.log(err);
         this.openSnackBar(err.status, 'Error');
         this.router.navigate(['/']);
-      });
+      }
     );
   }
 
   openSnackBar(message: any, action: string) {
     if(message == 409) message= 'Los datos ya han sido modificados. Presione F5 y luego modifique';
-    if(message == 404) message= 'El id no existe';
+    if(message == 400) message= 'Id formato invalido';
+    if(message == 404) message= 'No existe el id';
     this._snackBar.open(message, action, {
       duration: 10000,
     });
